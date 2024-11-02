@@ -12,11 +12,9 @@ export default {
     extend: {
       colors: {
         primary: "#484385",
-        tint: "#b179d0",
+        'primary-tint': "#b179d0",
         secondary: "#f25c54",
         "navy-blue": "#413e65",
-        // background: "#ffffff",
-        // foreground: "#000000",
       },
       backgroundImage: {
         birthday:
