@@ -6,15 +6,19 @@ import { FaRegCircleUser } from "react-icons/fa6";
 import { IoLogOutOutline } from "react-icons/io5";
 import { MdOutlineSearch } from "react-icons/md";
 import { RxHamburgerMenu } from "react-icons/rx";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { navbarCategoryLinks } from "../../constants";
 import { toggleNavbar } from "../../redux/slices/navbarSlice";
 import { toggleCart } from "../../redux/slices/cartSlice";
 import useOutsideClick from "../../hooks/useOutsideClick";
+import MobileNavbar from "../ui/MobileNavbar";
+import { RootState } from "../../redux/store";
 
 const Header = () => {
+  const { totalQuantity } = useSelector((state: RootState) => state.cart);
+  console.log(totalQuantity);
   const dispatch = useDispatch();
   const [userDropDownIsOpen, setUserDropDownIsOpen] = useState(false);
   const userDropdownRef = useRef<HTMLDivElement | null>(null);
@@ -26,7 +30,7 @@ const Header = () => {
 
   return (
     <>
-      <header className=" text-primary  fixed top-0  w-full left-1/2 -translate-x-1/2 z-40 backdrop-blur-2xl px-4 lg:px-0">
+      <header className=" text-primary  fixed top-0  w-full left-1/2 -translate-x-1/2 z-40 backdrop-blur-2xl px-4 xl:px-0">
         <div className="max-w-[1200px] mx-auto flex justify-between items-center py-4 ">
           <div className=" uppercase text-primary">
             <Link
@@ -37,7 +41,7 @@ const Header = () => {
             </Link>
             <p className="tracking-[3.7px] text-xs">Gift Shop</p>
           </div>
-          <div className="font-semibold  gap-10  h-[50px] justify-center items-center hidden lg:flex">
+          <nav className="font-semibold  gap-10  h-[50px] justify-center items-center hidden lg:flex">
             <Link className="hover:underline" to="/">
               Home
             </Link>
@@ -63,7 +67,8 @@ const Header = () => {
             <Link className="hover:underline" to="/products">
               Contact Us
             </Link>
-          </div>
+          </nav>
+          <MobileNavbar />
           <div className="flex items-center gap-6 lg:gap-7">
             <div className="flex gap-2 relative">
               <button className="hidden lg:inline-block hover:text-tint">
@@ -83,11 +88,8 @@ const Header = () => {
               className="flex items-center gap-1 font-medium relative hover:text-tint"
             >
               <BsFillBasketFill className="text-2xl" />
-              <span
-                className="bg-primary text-white  h-5 w-5 text-[10px]  flex items-center justify-center rounded-full
-           absolute -right-4 -translate-y-1/2"
-              >
-                0
+              <span className="bg-primary text-white h-5 w-6 text-[12px]  flex items-center justify-center rounded-full absolute -right-4 -translate-y-1/2">
+                {totalQuantity > 9 ? "9+" : totalQuantity}
               </span>
             </button>
 

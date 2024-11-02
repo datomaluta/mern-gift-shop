@@ -1,4 +1,3 @@
-"use client";
 import { useDispatch, useSelector } from "react-redux";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -9,7 +8,6 @@ import { toggleCart } from "../../redux/slices/cartSlice";
 const Cart = () => {
   const { cartIsOpen } = useSelector((state: RootState) => state.cart);
   const dispatch = useDispatch();
-  console.log(cartIsOpen);
 
   return (
     <>

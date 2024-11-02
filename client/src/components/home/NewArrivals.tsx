@@ -10,10 +10,38 @@ const NewArrivals = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-x-6 gap-y-10 mt-10 place-items-center">
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
+        <ProductCard
+          product={{
+            id: 1,
+            name: "Product 1",
+            price: 100,
+            image: "https://picsum.photos/200/300",
+          }}
+        />
+        <ProductCard
+          product={{
+            id: 2,
+            name: "Product 2",
+            price: 200,
+            image: "https://picsum.photos/200/300",
+          }}
+        />
+        <ProductCard
+          product={{
+            id: 3,
+            name: "Product 3",
+            price: 300,
+            image: "https://picsum.photos/200/300",
+          }}
+        />
+        <ProductCard
+          product={{
+            id: 4,
+            name: "Product 4",
+            price: 400,
+            image: "https://picsum.photos/200/300",
+          }}
+        />
       </div>
     </AnimatedDivForLanding>
   );

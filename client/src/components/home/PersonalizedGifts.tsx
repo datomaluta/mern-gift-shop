@@ -10,10 +10,39 @@ const PersonalizedGifts = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-x-6 gap-y-10 mt-10 place-items-center">
-        <ProductCard />
-        <ProductCard sale />
-        <ProductCard />
-        <ProductCard />
+        <ProductCard
+          product={{
+            id: 5,
+            name: "Product 5",
+            price: 100,
+            image: "https://picsum.photos/200/300",
+          }}
+        />
+        <ProductCard
+          product={{
+            id: 6,
+            name: "Product 6",
+            price: 200,
+            image: "https://picsum.photos/200/300",
+          }}
+          sale
+        />
+        <ProductCard
+          product={{
+            id: 7,
+            name: "Product 7",
+            price: 300,
+            image: "https://picsum.photos/200/300",
+          }}
+        />
+        <ProductCard
+          product={{
+            id: 8,
+            name: "Product 8",
+            price: 400,
+            image: "https://picsum.photos/200/300",
+          }}
+        />
       </div>
     </AnimatedDivForLanding>
   );
