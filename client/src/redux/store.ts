@@ -3,10 +3,12 @@ import cartReducer from "./slices/cartSlice";
 import navbarReducer from "./slices/navbarSlice";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 import { persistReducer, persistStore } from "redux-persist";
+import userReducer from "./slices/userSlice";
 
 const rootReducer = combineReducers({
   cart: cartReducer,
   navbar: navbarReducer,
+  user: userReducer,
 });
 
 const persistConfig = {

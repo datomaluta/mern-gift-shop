@@ -2,6 +2,13 @@ import { Link } from "react-router-dom";
 import AuthLayout from "../layout/AuthLayout";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
+import { useMutation } from "@tanstack/react-query";
+import { signin } from "../services/auth";
+import toast from "react-hot-toast";
+import LoadingSpinner from "../components/ui/LoadingSpinner";
+import { useDispatch, useSelector } from "react-redux";
+import { saveUserInfo } from "../redux/slices/userSlice";
+import { RootState } from "../redux/store";
 
 type FormData = {
   email: string;
@@ -9,14 +16,28 @@ type FormData = {
 };
 
 const Signin = () => {
+  const dispatch = useDispatch();
+  const { currentUser } = useSelector((state: RootState) => state.user);
+  console.log(currentUser);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>();
 
+  const { mutate, isPending } = useMutation({
+    mutationFn: signin,
+    onSuccess: (data) => {
+      dispatch(saveUserInfo(data?.data?.data?.user));
+    },
+    onError: (error: any) => {
+      toast.error(error?.response?.data?.message);
+    },
+  });
+
   const submitHandler = (data: FormData) => {
     console.log(data);
+    mutate(data);
   };
 
   return (
@@ -63,8 +84,8 @@ const Signin = () => {
               </p>
             </div>
 
-            <button className="w-full bg-primary hover:bg-primary-tint transition-all md:w-2/3 md:mx-auto block text-white py-2 rounded ">
-              Sign in
+            <button className="w-full bg-primary hover:bg-primary-tint transition-all md:w-2/3 md:mx-auto  text-white py-2 rounded flex justify-center items-center min-h-10">
+              {isPending ? <LoadingSpinner /> : "Sign in"}
             </button>
 
             <div className="flex gap-1 w-full md:w-2/3 md:mx-auto mt-8 justify-center">

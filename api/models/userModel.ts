@@ -30,7 +30,7 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
     unique: true,
     required: [true, "Username is required"],
     minLength: 2,
-    maxLength: 4,
+    maxLength: 15,
     validate: {
       validator: function (value: string) {
         return /^[a-z]+$/.test(value);
