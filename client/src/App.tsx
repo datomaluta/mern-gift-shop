@@ -3,9 +3,10 @@ import Home from "./pages/Home";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 import OnlyAuthenticated from "./pages/OnlyAuthenticated";
-import OnlyAdmin from "./pages/OnlyAdmin";
-import AdminRoute from "./components/auth/AdminRoute";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
+import AdminDashboard from "./pages/AdminDashboard";
+import AdminProducts from "./pages/AdminProducts";
+import AdminLayout from "./layout/AdminLayout";
 
 function App() {
   return (
@@ -16,8 +17,10 @@ function App() {
       <Route element={<ProtectedRoute />}>
         <Route path="/only-authenticated" element={<OnlyAuthenticated />} />
       </Route>
-      <Route element={<AdminRoute />}>
-        <Route path="/only-admins" element={<OnlyAdmin />} />
+
+      <Route path="/admin" element={<AdminLayout />}>
+        <Route path="dashboard" element={<AdminDashboard />} />
+        <Route path="products" element={<AdminProducts />} />
       </Route>
     </Routes>
   );

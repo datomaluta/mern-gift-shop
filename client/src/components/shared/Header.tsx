@@ -18,6 +18,7 @@ import { RootState } from "../../redux/store";
 import { useMutation } from "@tanstack/react-query";
 import { logout } from "../../services/auth";
 import { saveUserInfo } from "../../redux/slices/userSlice";
+import Logo from "../ui/Logo";
 
 const Header = () => {
   const { totalQuantity } = useSelector((state: RootState) => state.cart);
@@ -39,15 +40,7 @@ const Header = () => {
     <>
       <header className=" text-primary  fixed top-0  w-full left-1/2 -translate-x-1/2 z-40 backdrop-blur-2xl px-4 xl:px-0">
         <div className="max-w-[1200px] mx-auto flex justify-between items-center py-4 ">
-          <div className=" uppercase text-primary">
-            <Link
-              to={"/"}
-              className="text-2xl font-extrabold font-sans leading-none"
-            >
-              Regalo
-            </Link>
-            <p className="tracking-[3.7px] text-xs">Gift Shop</p>
-          </div>
+          <Logo />
           <nav className="font-semibold  gap-10  h-[50px] justify-center items-center hidden lg:flex">
             <Link className="hover:underline" to="/">
               Home
