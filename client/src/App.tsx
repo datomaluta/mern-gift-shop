@@ -5,6 +5,7 @@ import Signup from "./pages/Signup";
 import OnlyAuthenticated from "./pages/OnlyAuthenticated";
 import OnlyAdmin from "./pages/OnlyAdmin";
 import AdminRoute from "./components/auth/AdminRoute";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/signin" element={<Signin />} />
       <Route path="/signup" element={<Signup />} />
-      <Route element={<OnlyAuthenticated />}>
+      <Route element={<ProtectedRoute />}>
         <Route path="/only-authenticated" element={<OnlyAuthenticated />} />
       </Route>
       <Route element={<AdminRoute />}>

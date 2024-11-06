@@ -15,10 +15,13 @@ import { toggleCart } from "../../redux/slices/cartSlice";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import MobileNavbar from "../ui/MobileNavbar";
 import { RootState } from "../../redux/store";
+import { useMutation } from "@tanstack/react-query";
+import { logout } from "../../services/auth";
+import { saveUserInfo } from "../../redux/slices/userSlice";
 
 const Header = () => {
   const { totalQuantity } = useSelector((state: RootState) => state.cart);
-  console.log(totalQuantity);
+  const { currentUser } = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
   const [userDropDownIsOpen, setUserDropDownIsOpen] = useState(false);
   const userDropdownRef = useRef<HTMLDivElement | null>(null);
@@ -26,6 +29,10 @@ const Header = () => {
 
   useOutsideClick([userDropdownRef, userButtonRef], () => {
     setUserDropDownIsOpen(false);
+  });
+
+  const { mutate: logoutMutate } = useMutation({
+    mutationFn: logout,
   });
 
   return (
@@ -88,40 +95,63 @@ const Header = () => {
               className="flex items-center gap-1 font-medium relative hover:text-tint"
             >
               <BsFillBasketFill className="text-2xl" />
-              <span className="bg-primary text-white h-5 w-6 text-[12px]  flex items-center justify-center rounded-full absolute -right-4 -translate-y-1/2">
+              <span className="bg-primary-tint text-white h-5 w-6 text-[12px]  flex items-center justify-center rounded-full absolute -right-4 -translate-y-1/2">
                 {totalQuantity > 9 ? "9+" : totalQuantity}
               </span>
             </button>
 
             <div className="relative  h-[50px] flex items-center">
-              <button
-                ref={userButtonRef}
-                onClick={() => setUserDropDownIsOpen((currState) => !currState)}
-                className="hover:text-tint"
-              >
-                <FaUser className="text-xl" />
-              </button>
-              <AnimatePresence>
-                {userDropDownIsOpen && (
-                  <motion.div
-                    ref={userDropdownRef}
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.1 }}
-                    className="bg-white px-4 py-4 rounded absolute top-[100%] right-0 w-[200px] flex gap-4 flex-col"
+              {currentUser ? (
+                <>
+                  {" "}
+                  <button
+                    ref={userButtonRef}
+                    onClick={() =>
+                      setUserDropDownIsOpen((currState) => !currState)
+                    }
+                    className="hover:text-tint"
                   >
-                    <Link to={"/profile"} className="flex items-center gap-2">
-                      <FaRegCircleUser className="text-xl" />
-                      My Profile
-                    </Link>
-                    <button className="flex gap-2 items-center border-t pt-3">
-                      <IoLogOutOutline className="text-2xl" />
-                      Log out
-                    </button>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                    <FaUser className="text-xl" />
+                  </button>
+                  <AnimatePresence>
+                    {userDropDownIsOpen && (
+                      <motion.div
+                        ref={userDropdownRef}
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.1 }}
+                        className="bg-white px-4 py-4 rounded absolute top-[100%] right-0 w-[200px] flex gap-4 flex-col"
+                      >
+                        <Link
+                          to={"/profile"}
+                          className="flex items-center gap-2"
+                        >
+                          <FaRegCircleUser className="text-xl" />
+                          My Profile
+                        </Link>
+                        <button
+                          onClick={() => {
+                            logoutMutate();
+                            dispatch(saveUserInfo(null));
+                          }}
+                          className="flex gap-2 items-center border-t pt-3"
+                        >
+                          <IoLogOutOutline className="text-2xl" />
+                          Log out
+                        </button>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </>
+              ) : (
+                <Link
+                  className="hover:text-tint border-primary border px-2 py-1 rounded hover:bg-primary hover:text-white"
+                  to={"/signin"}
+                >
+                  Sign in
+                </Link>
+              )}
             </div>
           </div>
         </div>
