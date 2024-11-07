@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import authRouter from "./routes/authRoutes";
 import { globalErrorHandler } from "./controllers/errorController";
 import { AppError } from "./utils/appError";
+import productRouter from "./routes/productRoutes";
 
 dotenv.config();
 
@@ -28,6 +29,7 @@ app.listen(port, () => {
 });
 
 app.use("/api/auth", authRouter);
+app.use("/api/products", productRouter);
 
 app.all("*", (req: Request, res: Response, next) => {
   return next(
