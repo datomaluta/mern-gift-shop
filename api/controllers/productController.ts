@@ -63,6 +63,12 @@ export const getProduct = catchAsync(async (req, res, next) => {
 });
 
 export const getProducts = catchAsync(async (req, res, next) => {
+  const totalDocumentsInstance = new APIFeatures(Product.find(), req.query)
+    .search()
+    .filter();
+
+  const totalDocuments = await totalDocumentsInstance.query;
+
   const features = new APIFeatures(Product.find(), req.query)
     .search()
     .filter()
@@ -72,9 +78,15 @@ export const getProducts = catchAsync(async (req, res, next) => {
 
   const products = await features.query;
 
+  const page = parseInt(req?.query?.page as string, 10) || 1;
+  const limit = parseInt(req?.query?.limit as string, 10) || 1000;
+
   res.status(200).json({
     status: "success",
     results: products.length,
+    totalDocuments: totalDocuments.length,
+    totalPages: Math.ceil((totalDocuments.length || 0) / limit),
+    hasNextPage: page < Math.ceil((totalDocuments.length || 0) / limit),
     data: {
       products,
     },

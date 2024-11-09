@@ -33,7 +33,7 @@ const AdminLayout = () => {
         <SidebarContent setSidebarIsOpen={setSidebarIsOpen} />
       </aside>
 
-      <header className="lg:ml-[300px] p-4 flex">
+      <header className="lg:ml-[300px] p-4 flex shadow-md">
         <button
           className="lg:hidden"
           onClick={() => setSidebarIsOpen((currentState) => !currentState)}
@@ -50,7 +50,7 @@ const AdminLayout = () => {
           />
         </div>
       </header>
-      <main className="lg:ml-[300px] p-4 bg-red-500 min-h-screen transition-all">
+      <main className="lg:ml-[300px] p-4  min-h-screen transition-all">
         {currentUser?.isAdmin ? <Outlet /> : <Navigate to={"/signin"} />}
       </main>
     </>

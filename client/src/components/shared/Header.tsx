@@ -5,7 +5,7 @@ import { FaChevronDown, FaUser } from "react-icons/fa";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { IoLogOutOutline } from "react-icons/io5";
 import { MdOutlineSearch } from "react-icons/md";
-import { RxHamburgerMenu } from "react-icons/rx";
+import { RxDashboard, RxHamburgerMenu } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
@@ -123,6 +123,15 @@ const Header = () => {
                           <FaRegCircleUser className="text-xl" />
                           My Profile
                         </Link>
+                        {currentUser.isAdmin && (
+                          <Link
+                            to={"/admin/dashboard"}
+                            className="flex items-center gap-2"
+                          >
+                            <RxDashboard className="text-xl" />
+                            Admin Panel
+                          </Link>
+                        )}
                         <button
                           onClick={() => {
                             logoutMutate();

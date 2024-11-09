@@ -16,47 +16,52 @@ interface IProduct extends Document {
   salePrice: number;
 }
 
-const productSchema: Schema<IProduct> = new mongoose.Schema({
-  name: {
-    type: String,
-    required: [true, "Name is required"],
-  },
-  category: {
-    type: String,
-    required: [true, "Category is required"],
-    enum: {
-      values: [
-        "Clothing",
-        "Jewelries",
-        "Toys",
-        "Wallets",
-        "Handbags",
-        "Office",
-      ],
-      message: "Invalid category",
+const productSchema: Schema<IProduct> = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: [true, "Name is required"],
+    },
+    category: {
+      type: String,
+      required: [true, "Category is required"],
+      enum: {
+        values: [
+          "Clothing",
+          "Jewelries",
+          "Toys",
+          "Wallets",
+          "Handbags",
+          "Office",
+        ],
+        message: "Invalid category",
+      },
+    },
+    price: {
+      type: Number,
+      required: [true, "Price is required"],
+    },
+    image: {
+      type: String,
+      required: [true, "Image is required"],
+    },
+    images: {
+      type: [String],
+      default: [],
+    },
+    hasSale: {
+      type: Boolean,
+      default: false,
+    },
+    salePrice: {
+      type: Number,
+      default: 0,
     },
   },
-  price: {
-    type: Number,
-    required: [true, "Price is required"],
-  },
-  image: {
-    type: String,
-    required: [true, "Image is required"],
-  },
-  images: {
-    type: [String],
-    default: [],
-  },
-  hasSale: {
-    type: Boolean,
-    default: false,
-  },
-  salePrice: {
-    type: Number,
-    default: 0,
-  },
-});
+  {
+    timestamps: true,
+  }
+);
 
 const Product = mongoose.model<IProduct>("Product", productSchema);
 
