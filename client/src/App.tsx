@@ -4,9 +4,10 @@ import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 import OnlyAuthenticated from "./pages/OnlyAuthenticated";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
-import AdminDashboard from "./pages/AdminDashboard";
-import AdminProducts from "./pages/AdminProducts";
 import AdminLayout from "./layout/AdminLayout";
+import Dashboard from "./pages/admin/Dashboard";
+import Products from "./pages/admin/Products";
+import ProductCreate from "./pages/admin/ProductCreate";
 
 function App() {
   return (
@@ -19,8 +20,9 @@ function App() {
       </Route>
 
       <Route path="/admin" element={<AdminLayout />}>
-        <Route path="dashboard" element={<AdminDashboard />} />
-        <Route path="products" element={<AdminProducts />} />
+        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="products" element={<Products />} />
+        <Route path="products/create" element={<ProductCreate />} />
       </Route>
     </Routes>
   );

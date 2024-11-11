@@ -1,17 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 import { Pagination, Table } from "flowbite-react";
-import { getProducts } from "../services/products";
-import { ProductType } from "../types/product";
-import { textTrimmer } from "../helpers/stringFuntions";
+import { getProducts } from "../../services/products";
+import { ProductType } from "../../types/product";
+import { textTrimmer } from "../../helpers/stringFuntions";
 import { Link, useSearchParams } from "react-router-dom";
 import { MdEdit } from "react-icons/md";
 import { FaTrashAlt } from "react-icons/fa";
 import { useState } from "react";
-import LoadingSpinner from "../components/ui/LoadingSpinner";
-import { categories } from "../constants";
-import { queryBuilder } from "../helpers/queryBuilder";
+import LoadingSpinner from "../../components/ui/LoadingSpinner";
+import { categories } from "../../constants";
+import { queryBuilder } from "../../helpers/queryBuilder";
 
-const AdminProducts = () => {
+const Products = () => {
   const [chosenItem, setChosenItem] = useState<ProductType | null>(null);
   const [searchInputValue, setSearchInputValue] = useState<string>("");
   const [categoryInputValue, setCategoryInputValue] = useState<string>("");
@@ -30,9 +30,12 @@ const AdminProducts = () => {
     <div>
       <div className="flex justify-between items-center">
         <h1 className="text-xl font-medium">Products</h1>
-        <button className="bg-primary text-white px-5 py-2 rounded font-medium">
+        <Link
+          to="/admin/products/create"
+          className="bg-primary text-white px-5 py-2 rounded font-medium"
+        >
           Create
-        </button>
+        </Link>
       </div>
 
       <div className="mt-6 flex  flex-col gap-3 md:flex-row bg-red-5">
@@ -178,4 +181,4 @@ const AdminProducts = () => {
   );
 };
 
-export default AdminProducts;
+export default Products;

@@ -17,3 +17,13 @@ import { instance } from "./axios";
 export const getProducts = async (queryString: string) => {
   return instance.get(`/products?${queryString}`);
 };
+
+export const createProduct = async (data: {
+  name: string;
+  price: number;
+  category: string;
+  image: string;
+  images: string[];
+}) => {
+  return instance.post("/products", data);
+};
