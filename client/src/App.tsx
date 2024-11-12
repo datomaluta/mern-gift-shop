@@ -8,6 +8,7 @@ import AdminLayout from "./layout/AdminLayout";
 import Dashboard from "./pages/admin/Dashboard";
 import Products from "./pages/admin/Products";
 import ProductCreate from "./pages/admin/ProductCreate";
+import ProductEdit from "./pages/admin/ProductEdit";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="products" element={<Products />} />
         <Route path="products/create" element={<ProductCreate />} />
+        <Route path="products/edit/:id" element={<ProductEdit />} />
       </Route>
     </Routes>
   );

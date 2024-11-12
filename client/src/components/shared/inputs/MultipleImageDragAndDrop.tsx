@@ -3,6 +3,7 @@ import { useDropzone } from "react-dropzone";
 import { ControllerRenderProps, FieldValues } from "react-hook-form";
 import LoadingSpinner from "../../ui/LoadingSpinner";
 import { AiOutlineUpload } from "react-icons/ai";
+import { IoClose } from "react-icons/io5";
 
 const MultipleFilePickerReactDropzone = ({
   control,
@@ -12,6 +13,7 @@ const MultipleFilePickerReactDropzone = ({
   uploadImage,
   imgUrls,
   setError,
+  setImgUrls,
 }: {
   control: ControllerRenderProps<FieldValues, string>;
   imgUrls?: string[];
@@ -20,6 +22,7 @@ const MultipleFilePickerReactDropzone = ({
   imageFileUploading: boolean;
   imageFileUploadError: string | null;
   setError: any;
+  setImgUrls: React.Dispatch<React.SetStateAction<string[]>>;
 }) => {
   // const [imgPreviews, setImgPreviews] = useState<string[]>([]); // Use array for multiple previews
 
@@ -73,7 +76,7 @@ const MultipleFilePickerReactDropzone = ({
     <div>
       <div
         {...getRootProps()}
-        className="flex min-h-[232px] cursor-pointer flex-col items-center gap-3 rounded-md border !border-dashed !border-gray-300 bg-white p-5 hover:!border-primary dark:!border-strokedark dark:bg-graydark dark:hover:!border-primary "
+        className="flex min-h-[300px] cursor-pointer flex-col items-center gap-3 rounded-md border !border-dashed !border-gray-300 bg-white p-5 hover:!border-primary dark:!border-strokedark dark:bg-graydark dark:hover:!border-primary "
       >
         <input {...getInputProps()} />
         {isDragActive ? (
@@ -87,14 +90,32 @@ const MultipleFilePickerReactDropzone = ({
             <label className="cursor-pointer font-medium">
               Drop files here to upload
             </label>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-8">
               {imgUrls?.map((url, index) => (
-                <img
-                  key={index}
-                  className="h-16 w-20 rounded object-cover"
-                  src={url}
-                  alt={`preview-${index}`}
-                />
+                <div key={index} className="group flex flex-col items-center">
+                  <img
+                    key={index}
+                    className="h-20 w-24 rounded object-cover"
+                    src={url}
+                    alt={`preview-${index}`}
+                  />
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      console.log(url);
+                      setImgUrls((prev: string[]) =>
+                        prev.filter((u) => u !== url)
+                      );
+
+                      console.log(control.value);
+                    }}
+                    className="bg-red-500 text-white py-1 px-1 mt-2 rounded text-sm   items-center gap-1 hidden group-hover:flex"
+                  >
+                    <IoClose className="text-xl" />
+                    Remove
+                  </button>
+                </div>
               ))}
             </div>
             {imageFileUploading && <LoadingSpinner />}
